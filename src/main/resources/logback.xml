@@ -1,0 +1,47 @@
+<configuration>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d{ HH:mm:ss SSS} %p [%t]:%m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+    </appender>
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>logs/audit.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/audit.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <Append>true</Append>
+        <encoder>
+            <pattern>%d{HH:mm:ss SSS} %p [%t]:%m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+    <logger name="jdbc.sqlonly" level="ERROR">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="jdbc.audit" level="ERROR">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="jdbc.resultset" level="ERROR">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="jdbc.connection" level="ERROR">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="jdbc.sqltiming" level="ERROR">
+        <appender-ref ref="Console"/>
+    </logger>
+    <logger name="org" level="info"></logger>
+    <logger name="freemarker" level="info"></logger>
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="File"/>
+        <!--<appender-ref ref="Email"/>-->
+        <!--<appender-ref ref="File"/>-->
+    </root>
+</configuration>
